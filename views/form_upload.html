@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<title>Go upload</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<body class="container">
+
+    <h1>Upload file with Go</h1>
+
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="file" />
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </form>
+
+    {{ if .Success }}
+    <div class="alert alert-success" role="alert">
+        {{ .Success }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{ end }}
+
+    {{ if .Warning }}
+    <div class="alert alert-warning" role="alert">
+        {{ .Warning }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{ end }}
+
+    {{ if .Files }}
+    <table class="table">
+        <tr>
+            <th>Preview</th>
+            <th>Name</th>
+            <th>Size (kb)</th>
+            <th>Last update</th>
+            <th>Width</th>
+            <th>Height</th>
+            <th>Delete</th>
+        </tr>
+        {{ range $FileInfo := .Files }}
+        <tr>
+            <td>
+                <a href="tmp/{{ $FileInfo.Name }}" target="_blank">
+                    <img src="tmp/{{ $FileInfo.Name }}" height="120" alt="" />
+                </a>
+            </td>
+            <td>{{ $FileInfo.Name }}</td>
+            <td>{{ $FileInfo.Size }}</td>
+            <td>{{ $FileInfo.Updated }}</td>
+            <td>{{ $FileInfo.Width }}px</td>
+            <td>{{ $FileInfo.Height }}px</td>
+            <td><a href="?file={{ $FileInfo.Name }}">Delete</a></td>
+         </tr>
+        {{ end }}
+    </table>
+    {{ else }}
+    <p>No files</p>
+    {{ end }}
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>
