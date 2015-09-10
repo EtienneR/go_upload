@@ -24,6 +24,6 @@
 ## Docker installation
 
 1. Put you in the application folder
-2. Build the image: `sudo docker build -t go_upload docker build -t="dockerfile/mariadb" .`
+2. Build the image: `sudo docker build -t go_upload .`
 3. Run the application in a temporarly container: `sudo docker run --publish 3000:3000 --name go_upload_test --rm go_upload`
 4. Access to the server with the URL address: 127.0.0.1:3000
